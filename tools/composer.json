@@ -1,0 +1,5 @@
+{
+    "require-dev": {
+        "symfony/finder": "^5.1"
+    }
+}

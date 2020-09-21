@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Swow</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="description" content="Swow官方文档">
+  <meta name="keywords" content="php,swow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="//cdn.jsdelivr.net/gh/sy-records/staticfile/js/docsify/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github/index.js"></script>
+<script src="//cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script>
+  window.$docsify = {
+    name: 'Swow',
+    repo: 'swow/swow',
+    loadSidebar: true,
+    subMaxLevel: 3,
+    themeColor: '#5C9DFF',
+    mergeNavbar: true,
+    homepage: 'zh-cn/README.md',
+    auto2top: true,
+    loadNavbar: true,
+    search: {
+      depth: 6,
+      noData: {
+        '/en/': 'No results!',
+        '/zh-cn/': '没有找到结果!',
+        '/zh-hk/': '沒有找到結果!',
+        '/zh-tw/': '沒有找到結果!',
+        '/': '没有找到结果!'
+      },
+      paths: 'auto',
+      placeholder: {
+        '/en/': 'Type to Search',
+        '/zh-cn/': '输入关键词搜索',
+        '/zh-hk/': '輸入關鍵詞搜索',
+        '/zh-tw/': '輸入關鍵詞搜索',
+        '/': '输入关键词搜索'
+      },
+      pathNamespaces: ['/zh-cn', '/zh-tw', '/zh-hk', '/en']
+    },
+    alias: {
+      '/_sidebar.md': '/zh-cn/_sidebar.md',
+      '/.*/_navbar.md': '/_navbar.md',
+    },
+    plugins: [
+      function (hook) {
+        hook.doneEach(function () {
+          pangu.spacingElementByClassName('content')
+        })
+      }
+    ]
+  }
+</script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+<script src="//cdn.jsdelivr.net/gh/sy-records/staticfile/js/docsify/search.min.js"></script>
+</body>
+</html>
