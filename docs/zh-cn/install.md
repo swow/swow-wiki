@@ -26,25 +26,25 @@ sudo make install
 composer require swow/swow
 ```
 
-下载完成后在 `vendor/bin` 目录中会有一个 `extension.php` 的文件，我们可以使用此脚本文件来安装扩展
+下载完成后在 `vendor/bin` 目录中会有一个 `swow-builder` 的文件，我们可以使用此脚本文件来安装扩展
 
 此脚本提供了4个参数，分别为`rebuild`, `show-log`, `debug`, `enable`，支持同时多个参数，示例如下
 
 ```shell
 #编译扩展
-php vendor/bin/extension.php
+php vendor/bin/swow-builder
 
 #重新编译扩展
-php vendor/bin/extension.php --rebuild
+php vendor/bin/swow-builder --rebuild
 
 #编译扩展时显示完整编译日志信息
-php vendor/bin/extension.php --show-log
+php vendor/bin/swow-builder --show-log
 
 #编译扩展并打开扩展的调试模式
-php vendor/bin/extension.php --debug
+php vendor/bin/swow-builder --debug
 
 #编译扩展时增加一些编译参数
-php vendor/bin/extension.php --enable="--enable-debug"
+php vendor/bin/swow-builder --enable="--enable-debug"
 ```
 
 !> 编译成功后，不要忘记在 php.ini 中加入一行 `extension=swow.so` 来启用 Swow 扩展
