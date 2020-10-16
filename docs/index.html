@@ -50,6 +50,7 @@
       '/.*/_navbar.md': '/_navbar.md',
     },
     plugins: [
+      EditOnGithubPlugin.create('https://github.com/swow/wiki/blob/master/docs/'),
       function (hook) {
         hook.doneEach(function () {
           pangu.spacingElementByClassName('content')
