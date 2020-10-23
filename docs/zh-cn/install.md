@@ -1,5 +1,7 @@
 # 扩展安装
 
+!> ⚠️预览版本, 非生产可用
+
 Swow 扩展安装提供了以下几种方法
 
 ## 编译安装
@@ -16,7 +18,7 @@ make
 sudo make install
 ```
 
-!> 编译成功后，在使用时推荐通过 `-d` 来加载 Swow 扩展，如：`php -d extension=swow`
+!> 编译成功后，在使用时推荐通过 `-d` 来按需加载 Swow 扩展，如：`php -d extension=swow`
 
 ## Composer
 
@@ -47,7 +49,7 @@ php vendor/bin/swow-builder --debug
 php vendor/bin/swow-builder --enable="--enable-debug"
 ```
 
-!> 编译成功后，在使用时推荐通过 `-d` 来加载 Swow 扩展，如：`php -d extension=swow`
+!> 编译成功后，在使用时推荐通过 `-d` 来按需加载 Swow 扩展，如：`php -d extension=swow`
 
 ## 编译参数
 
