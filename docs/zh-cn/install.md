@@ -16,7 +16,7 @@ make
 sudo make install
 ```
 
-!> 编译成功后，不要忘记在 php.ini 中加入一行 `extension=swow.so` 来启用 Swow 扩展
+!> 编译成功后，在使用时推荐通过 `-d` 来加载 Swow 扩展，如：`php -d extension=swow`
 
 ## Composer
 
@@ -47,7 +47,7 @@ php vendor/bin/swow-builder --debug
 php vendor/bin/swow-builder --enable="--enable-debug"
 ```
 
-!> 编译成功后，不要忘记在 php.ini 中加入一行 `extension=swow.so` 来启用 Swow 扩展
+!> 编译成功后，在使用时推荐通过 `-d` 来加载 Swow 扩展，如：`php -d extension=swow`
 
 ## 编译参数
 
