@@ -1,7 +1,5 @@
 # 擴展安裝
 
-!> 預覽版本, 非生產可用
-
 Swow 擴展安裝提供了以下幾種方法
 
 ## 編譯安裝
@@ -9,7 +7,7 @@ Swow 擴展安裝提供了以下幾種方法
 下載或者 clone 源代碼後，在終端進入源碼目錄，執行下面的命令進行編譯和安裝
 
 ```shell
-git clone git@github.com:swow/swow.git
+git clone https://github.com/swow/swow.git
 
 cd swow
 phpize
@@ -25,7 +23,7 @@ sudo make install
 可以使用 Composer 下載源碼
 
 ```shell
-composer require swow/swow
+composer require swow/swow:dev-develop
 ```
 
 下載完成後在 `vendor/bin` 目錄中會有一個 `swow-builder` 的文件，我們可以使用此腳本文件來安裝擴展
