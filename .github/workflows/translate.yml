@@ -39,7 +39,6 @@ jobs:
           cd tools
           composer install
           php translate.php
-          git status
 
       - name: "Commit Updated"
         uses: stefanzweifel/git-auto-commit-action@v4
