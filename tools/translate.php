@@ -1,5 +1,10 @@
 #!/usr/bin/env php
 <?php
+/**
+ * Run this PHP script to generate the zh-tw and zh-hk documentations via zh-cn.
+ *
+ * @notice Please DO NOT run this script manually, when you trying to submit a Pull Request of Documentation.
+ */
 
 define('ROOT_DIR', dirname(__DIR__));
 

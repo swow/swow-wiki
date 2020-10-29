@@ -1,10 +1,10 @@
 name: Translate docs
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   translate:
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -14,7 +14,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: 7.4
           tools: phpize
           ini-values: extension=opencc
 
@@ -40,7 +40,7 @@ jobs:
           composer install
           php translate.php
 
-      - name: "Commit Updated"
+      - name: Commit Updated
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update docs and translate

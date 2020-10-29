@@ -54,3 +54,17 @@ Enter 'r' to run your program
 14. 扫描僵尸协程(`z 时间`)
 15. 杀死协程(`kill id`)
 16. 杀死所有协程(`killall`)
+
+## 退出调试器
+
+调试完毕后可以键入`q`退出调试器。
+
+如果进程中还存在协程在运行，那么可以再次键入所设置的`关键字+回车`呼出调试器。
+
+关键词默认为`sdb`，可以在调用`runOnTTY()`方法时设置，如：
+
+```php
+\Swow\Debug\Debugger::runOnTTY('swow');
+```
+
+反之则直接退出。
