@@ -54,3 +54,17 @@ Enter 'r' to run your program
 14. 掃描殭屍協程(`z 時間`)
 15. 殺死協程(`kill id`)
 16. 殺死所有協程(`killall`)
+
+## 退出調試器
+
+調試完畢後可以鍵入`q`退出調試器。
+
+如果進程中還存在協程在運行，那麼可以再次鍵入所設置的`關鍵字+回車`呼出調試器。
+
+關鍵詞默認為`sdb`，可以在調用`runOnTTY()`方法時設置，如：
+
+```php
+\Swow\Debug\Debugger::runOnTTY('swow');
+```
+
+反之則直接退出。
