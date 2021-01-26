@@ -2,7 +2,7 @@
 
 Swow 扩展安装提供了以下几种方法
 
-## 编译安装 （UNIX-like 或 cygwin、msys、wsl）
+## 编译安装 (UNIX-like 或 cygwin、msys、wsl)
 
 下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装
 
@@ -16,7 +16,7 @@ make
 sudo make install
 ```
 
-## 编译安装 （Windows）
+## 编译安装 (Windows)
 
 ### 准备MSVC
 
@@ -30,7 +30,7 @@ sudo make install
 
 ### 准备devpack
 
-在[PHP Windows 下载页](https://windows.php.net/download/)找到你所使用PHP版本的"Development package (SDK to develop PHP extensions)"链接，下载它
+在 [PHP Windows 下载页](https://windows.php.net/download/) 找到你所使用PHP版本的"Development package (SDK to develop PHP extensions)"链接，下载它
 
 解压到任意目录（以下使用C:\php-8.0.1-devel-vs16-x64为例）
 
