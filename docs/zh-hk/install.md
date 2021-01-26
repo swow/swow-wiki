@@ -2,19 +2,64 @@
 
 Swow 擴展安裝提供了以下幾種方法
 
-## 編譯安裝
+## 編譯安裝 (UNIX-like 或 cygwin、msys、wsl)
 
 下載或者 clone 源代碼後，在終端進入源碼目錄，執行下面的命令進行編譯和安裝
 
 ```shell
-git clone https://github.com/swow/swow.git
+git clone https://github.com/swow/swow.git swow
 
-cd swow
+cd swow/ext
 phpize
 ./configure
 make
 sudo make install
 ```
+
+## 編譯安裝 (Windows)
+
+### 準備MSVC
+
+根據你所使用的PHP發佈選擇安裝MSVC的版本，例如使用了PHP 8.0.1的"VS16 x64 Non Thread Safe"選項，則需要選擇VS16，也就是VS2019
+
+| VC版本號 | VS版本 | 説明 |
+| - | - | - |
+| VS16 | 2019 |  |
+| VC15 | 2017 | 安裝VS2017或者在安裝VS2019時選擇VS2017工具鏈 |
+| VC14 | 2015 | 安裝VS2015或者在安裝VS2017時選擇VS2015工具鏈 |
+
+### 準備devpack
+
+在 [PHP Windows 下載頁](https://windows.php.net/download/) 找到你所使用PHP版本的"Development package (SDK to develop PHP extensions)"鏈接，下載它
+
+解壓到任意目錄（以下使用C:\php-8.0.1-devel-vs16-x64為例）
+
+### 準備php-sdk-binary-tools
+
+clone微軟提供的php-sdk-binary-tools到任意目錄（以下使用C:\php-sdk-binary-tools為例）
+
+```batch
+git clone https://github.com/Microsoft/php-sdk-binary-tools
+```
+
+### 構建
+
+打開PHP工具命令行：
+
+例如在為之前提到的PHP8.0 VS16 x64 NTS構建swow擴展則執行C:\php-sdk-binary-tools\phpsdk-vs16-x64.bat 
+
+在打開的命令行中下載或者 clone 源代碼後，進入源碼目錄，執行下面的命令進行構建
+
+```batch
+git clone https://github.com/swow/swow.git swow
+CD swow\ext
+REM 下面的C:\php-8.0.1-devel-vs16-x64是之前解壓的devpack路徑
+C:\php-8.0.1-devel-vs16-x64\phpize.bat
+configure.bat
+nmake
+```
+
+構建完成後，將生成的php_swow.dll放置於extension_dir中（默認的，這個目錄是C:\php\ext）
 
 !> 編譯成功後，在使用時推薦通過 `-d` 來按需加載 Swow 擴展，如：`php -d extension=swow`
 
