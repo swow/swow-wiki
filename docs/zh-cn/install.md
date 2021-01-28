@@ -1,4 +1,3 @@
-# 扩展安装
 
 Swow 扩展安装提供了以下几种方法
 
@@ -42,6 +41,17 @@ clone微软提供的php-sdk-binary-tools到任意目录（以下使用C:\php-sdk
 git clone https://github.com/Microsoft/php-sdk-binary-tools
 ```
 
+### 准备依赖
+!>  目前Swow未实现openssl（20210128），因此不需要准备任何依赖
+
+在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如openssl）
+
+解压到任意目录（以下使用C:\deps为例）
+
+如果解压到swow扩展源码目录的同级deps目录，则下面可以省去--with-php-build参数
+
+例如 swow源码在C:\swow， deps在C\swow\deps时
+
 ### 构建
 
 打开PHP工具命令行：
@@ -55,11 +65,11 @@ git clone https://github.com/swow/swow.git swow
 CD swow\ext
 REM 下面的C:\php-8.0.1-devel-vs16-x64是之前解压的devpack路径
 C:\php-8.0.1-devel-vs16-x64\phpize.bat
-configure.bat
+configure.bat --enable-swow --with-php-build=C:\deps
 nmake
 ```
 
-构建完成后，将生成的php_swow.dll放置于extension_dir中（默认的，这个目录是C:\php\ext）
+构建完成后，将生成的php_swow.dll放置于extension_dir中（默认的，这个目录是php文件同级的ext目录或者C:\php\ext，具体情况参照所使用的PHP发行说明）
 
 !> 编译成功后，在使用时推荐通过 `-d` 来按需加载 Swow 扩展，如：`php -d extension=swow`
 
@@ -98,4 +108,14 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 * `--enable-debug`
 
-打开调试模式
+打开（PHP的）调试模式
+
+
+* `--enable-swow-debug`
+
+打开Swow调试
+
+
+* `--enable-swow`
+
+开启Swow扩展的编译
