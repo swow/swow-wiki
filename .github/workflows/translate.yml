@@ -1,6 +1,6 @@
 name: Translate docs
 
-on: [ pull_request, pull_request_target, workflow_dispatch ]
+on: [ pull_request, workflow_dispatch ]
 
 jobs:
   translate:
