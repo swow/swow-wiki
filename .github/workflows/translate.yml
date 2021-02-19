@@ -1,6 +1,6 @@
 name: Translate docs
 
-on: [ pull_request, workflow_dispatch ]
+on: [ pull_request, pull_request_target, workflow_dispatch ]
 
 jobs:
   translate:
@@ -42,4 +42,3 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update docs and translate
-          branch: ${{ github.head_ref }}
