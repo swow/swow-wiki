@@ -43,15 +43,16 @@ git clone https://github.com/Microsoft/php-sdk-binary-tools
 ```
 
 ### 准备依赖
+
 !>  目前Swow未实现openssl（20210128），因此不需要准备任何依赖
 
 在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如openssl）
 
 解压到任意目录（以下使用C:\deps为例）
 
-如果解压到swow扩展源码目录的同级deps目录，则下面可以省去--with-php-build参数
+如果解压到Swow扩展源码目录的同级deps目录，则下面可以省去--with-php-build参数
 
-例如 swow源码在C:\swow， deps在C\swow\deps时
+例如Swow源码在C:\swow，deps在C:\swow\deps时
 
 ### 构建
 
@@ -109,13 +110,11 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 * `--enable-debug`
 
-打开（PHP的）调试模式
-
+打开PHP的调试模式
 
 * `--enable-swow-debug`
 
-打开Swow调试
-
+打开Swow的调试模式
 
 * `--enable-swow`
 
