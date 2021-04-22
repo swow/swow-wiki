@@ -44,7 +44,7 @@ git clone https://github.com/Microsoft/php-sdk-binary-tools
 
 ### 准备依赖
 
-!>  目前Swow未实现openssl（20210128），因此不需要准备任何依赖
+!> 目前Swow未实现openssl（20210128），因此不需要准备任何依赖
 
 在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如openssl）
 
