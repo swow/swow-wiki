@@ -2,7 +2,7 @@
 
 ## 同时安装了`swow` 和 `swoole`
 
-```bash
+```
 Coroutine module is incompatible with some extensions that setup exit user opcode handler in Unknown on line 0
 ```
 
@@ -10,8 +10,9 @@ Coroutine module is incompatible with some extensions that setup exit user opcod
 
 ## 使用SDB调试时提示 Please re-run your program with "-e" option
 
-```bash
-> attach 3 // 进入id为3的协程进行跟踪调试的命令
+```
+# 进入id为3的协程进行跟踪调试
+> attach 3
 Error: Please re-run your program with "-e" option in path/to/vendor/swow/swow/lib/src/Swow/Debug/Debugger.php:0
 ```
 
