@@ -223,3 +223,28 @@ var_dump($coroutine->getStateName());//output  string(7) "waiting"
 
 * 返回值
     + 返回string类型的状态值
+
+### getRound()
+
+获取协程切换次数
+
+```php
+ Coroutine::getCurrent()->getRound(); //output 1
+```
+
+* 作用
+    + 协程最后一次调度是在第几轮,每切换一次全局轮数+1
+
+* 返回值
+    + 返回int类型
+
+### getElapsed()
+
+获取协程运行的时间以便于分析统计或找出僵尸协程
+
+```php
+ Coroutine::getCurrent()->getElapsed(); //output 600ms
+```
+
+* 返回值
+    + 协程已运行的时间数，毫秒级精度
