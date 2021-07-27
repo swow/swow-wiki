@@ -44,7 +44,7 @@ git clone https://github.com/Microsoft/php-sdk-binary-tools
 
 ### 準備依賴
 
-!>  目前Swow未實現openssl（20210128），因此不需要準備任何依賴
+!> 目前Swow未實現openssl（20210128），因此不需要準備任何依賴
 
 在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架構名例如x64>/` 找到依賴的包（例如openssl）
 
