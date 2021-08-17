@@ -4,7 +4,40 @@ Swow 扩展安装提供了以下几种方法
 
 ## 编译安装 (UNIX-like 或 cygwin、msys、wsl)
 
-下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装
+首先安装PHP，安装方法参考各发行版说明
+
+### 准备构建依赖（UNIX）
+
+如果你需要cURL hook支持或者ssl支持
+
+#### linux
+
+```bash
+# debian and its varient like ubuntu, kali, armbian, raspbian, deepin, uos
+apt-get install libcurl4-openssl-dev libssl-dev
+# fedora, rhel 8, centos 8
+dnf install libcurl-devel openssl-devel
+# legacy fedora, rhel 6/7, centos 6/7
+yum install libcurl-devel openssl-devel
+# archlinux and its varient like archlinuxarm, blackarch
+pacman -S curl openssl
+# alpine
+apk add curl-dev openssl-dev
+# opensuse, suse
+zypper install libcurl-devel libopenssl-devel
+```
+
+#### macOS
+
+```bash
+brew install curl openssl
+```
+
+然后根据提示export PKG_CONFIG_PATH来让configure
+
+### 构建安装
+
+下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装，构建参数见[下面的说明](#%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0)
 
 ```shell
 git clone https://github.com/swow/swow.git swow
@@ -42,7 +75,7 @@ clone微软提供的php-sdk-binary-tools到任意目录（以下使用C:\php-sdk
 git clone https://github.com/Microsoft/php-sdk-binary-tools
 ```
 
-### 准备依赖
+### 准备构建依赖（Windows）
 
 在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如curl）
 
