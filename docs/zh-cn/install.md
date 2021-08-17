@@ -37,7 +37,7 @@ brew install curl openssl
 
 ### 构建安装
 
-下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装，构建参数见[下面的说明](#%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0)
+下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装，构建参数见[下面的说明](#compile-args)
 
 ```shell
 git clone https://github.com/swow/swow.git swow
@@ -139,7 +139,7 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 !> 编译成功后，在使用时推荐通过 `-d` 来按需加载 Swow 扩展，如：`php -d extension=swow`
 
-## 编译参数
+## 编译参数 :id=compile-args
 
 ### 支持参数
 
