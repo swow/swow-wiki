@@ -108,14 +108,33 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 ## 编译参数
 
+* `--enable-swow`
+
+开启Swow扩展的编译（默认开启，可以指定`=yes`或者`=shared`，`=static`）
+
 * `--enable-debug`
 
-打开PHP的调试模式
+打开PHP的调试模式，需要在**编译PHP时**指定
+
+* （Windows）`--enable-debug-pack`
+
+打开扩展的的debug pack构建，用于Windows下Release版本PHP的Swow调试，**编译Swow时**指定
 
 * `--enable-swow-debug`
 
 打开Swow的调试模式
 
-* `--enable-swow`
+* （Linux）`--enable-swow-valgrind`
 
-开启Swow扩展的编译
+（需要`--enable-swow-debug`）打开Swow的valgrind支持，用于检查C代码内存问题
+
+
+* （Unix-like）`--enable-swow-gcov`
+
+（需要`--enable-swow-debug`）开启Swow的GCOV支持，用于C代码覆盖率支持
+
+* （Unix-like）`--enable-swow-{address,undefined,memory}-sanitizer`
+
+（需要`--enable-swow-debug`）开启Swow的{A,UB,M}San支持，用于找出C代码的潜在问题
+
+
