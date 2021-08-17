@@ -44,21 +44,21 @@ git clone https://github.com/Microsoft/php-sdk-binary-tools
 
 ### 准备依赖
 
-!> 目前Swow未实现openssl（20210128），因此不需要准备任何依赖
+在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如curl）
 
-在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如openssl）
+注意版本对齐，未对齐的依赖版本可能导致奇怪的segfault，PHP无法正常退出等神奇问题，`https://windows.php.net/downloads/php-sdk/deps/series/`中的文件提供了这些版本信息
 
 解压到任意目录（以下使用C:\deps为例）
 
 如果解压到Swow扩展源码目录的同级deps目录，则下面可以省去--with-php-build参数
 
-例如Swow源码在C:\swow，deps在C:\swow\deps时
+例如Swow源码在C:\swow，Swow扩展源码目录在C:\swow\ext，deps在C:\swow\deps时
 
 ### 构建
 
 打开PHP工具命令行：
 
-例如在为之前提到的PHP8.0 VS16 x64 NTS构建swow扩展则执行C:\php-sdk-binary-tools\phpsdk-vs16-x64.bat 
+例如在为之前提到的PHP8.0 VS16 x64 NTS构建swow扩展则执行C:\php-sdk-binary-tools\phpsdk-vs16-x64.bat
 
 在打开的命令行中下载或者 clone 源代码后，进入源码目录，执行下面的命令进行构建
 
@@ -108,17 +108,29 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 ## 编译参数
 
+### 支持参数
+
 * `--enable-swow`
 
 开启Swow扩展的编译（默认开启，可以指定`=yes`或者`=shared`，`=static`）
 
+* `--enable-swow-ssl`
+
+开启Swow SSL支持，需要OpenSSL
+
+* `--enable-swow-curl`
+
+开启Swow cURL支持，需要cURL
+
+### 调试参数
+
 * `--enable-debug`
 
-打开PHP的调试模式，需要在**编译PHP时**指定
+打开PHP的调试模式，需要在**编译PHP时**指定，在编译Swow时指定无效
 
 * （Windows）`--enable-debug-pack`
 
-打开扩展的的debug pack构建，用于Windows下Release版本PHP的Swow调试，**编译Swow时**指定
+打开扩展的的debug pack构建，用于Windows下Release版本PHP的Swow调试，**编译Swow时**指定，不能与`--enable-debug`一同使用
 
 * `--enable-swow-debug`
 
@@ -128,7 +140,6 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 （需要`--enable-swow-debug`）打开Swow的valgrind支持，用于检查C代码内存问题
 
-
 * （Unix-like）`--enable-swow-gcov`
 
 （需要`--enable-swow-debug`）开启Swow的GCOV支持，用于C代码覆盖率支持
@@ -136,5 +147,3 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 * （Unix-like）`--enable-swow-{address,undefined,memory}-sanitizer`
 
 （需要`--enable-swow-debug`）开启Swow的{A,UB,M}San支持，用于找出C代码的潜在问题
-
-
