@@ -4,7 +4,7 @@ Swow 扩展安装提供了以下几种方法
 
 ## 编译安装 (UNIX-like 或 cygwin、msys、wsl)
 
-首先安装PHP，安装方法参考各发行版说明
+首先安装PHP和它的开发包（php头文件和phpize，php-config等），安装方法参考各发行版说明
 
 ### 准备构建依赖（UNIX）
 
@@ -13,15 +13,16 @@ Swow 扩展安装提供了以下几种方法
 #### linux
 
 ```bash
-# debian and its varient like ubuntu, kali, armbian, raspbian, deepin, uos
+# debian和它的变种，如ubuntu, kali, armbian, raspbian, deepin, uos
 apt-get install libcurl4-openssl-dev libssl-dev
 # fedora, rhel 8, centos 8
 dnf install libcurl-devel openssl-devel
-# legacy fedora, rhel 6/7, centos 6/7
+# 旧版fedora, rhel 6/7, centos 6/7
 yum install libcurl-devel openssl-devel
-# archlinux and its varient like archlinuxarm, blackarch
+# archlinux和它的变种，如manjaro, archlinuxarm, blackarch
 pacman -S curl openssl
 # alpine
+# 如果提示openssl1.1-compat-dev-1.1.1xxx: conflicts，只安装curl-dev就行
 apk add curl-dev openssl-dev
 # opensuse, suse
 zypper install libcurl-devel libopenssl-devel
@@ -33,21 +34,27 @@ zypper install libcurl-devel libopenssl-devel
 brew install curl openssl
 ```
 
-然后根据提示export PKG_CONFIG_PATH来让configure
+然后根据提示执行export PKG_CONFIG_PATH来让configure能够找到它们
 
 ### 构建安装
 
 下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装，构建参数见[下面的说明](#compile-args)
 
 ```shell
+# 获取源码
 git clone https://github.com/swow/swow.git swow
-
 cd swow/ext
+# 生成configure
 phpize
+# 执行configure，构建参数见下面的说明
 ./configure
-make
+# 构建，可以使用 -j+数字 来并行构建
+make -j4
+# 安装，如果configure制定了prefix，可以不使用sudo
 sudo make install
 ```
+
+!> 编译成功后，在使用时推荐通过 `-d` 来按需加载 Swow 扩展，如：`php -d extension=swow`
 
 ## 编译安装 (Windows)
 
