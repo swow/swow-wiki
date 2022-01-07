@@ -76,10 +76,10 @@ sudo make install
 
 ### 准备php-sdk-binary-tools
 
-clone微软提供的php-sdk-binary-tools到任意目录（以下使用C:\php-sdk-binary-tools为例）
+clone PHP官方提供的php-sdk-binary-tools到任意目录（以下使用C:\php-sdk-binary-tools为例）
 
 ```batch
-git clone https://github.com/Microsoft/php-sdk-binary-tools
+git clone https://github.com/php/php-sdk-binary-tools
 ```
 
 ### 准备构建依赖（Windows）
