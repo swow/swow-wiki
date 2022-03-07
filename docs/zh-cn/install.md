@@ -4,17 +4,57 @@ Swow 扩展安装提供了以下几种方法
 
 ## 编译安装 (UNIX-like 或 cygwin、msys、wsl)
 
-下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装
+首先安装PHP和它的开发包（php头文件和phpize，php-config等），安装方法参考各发行版说明
+
+### 准备构建依赖（UNIX）
+
+如果你需要cURL hook支持或者ssl支持
+
+#### linux
+
+```bash
+# debian和它的变种，如ubuntu, kali, armbian, raspbian, deepin, uos
+apt-get install libcurl4-openssl-dev libssl-dev
+# fedora, rhel 8, centos 8
+dnf install libcurl-devel openssl-devel
+# 旧版fedora, rhel 6/7, centos 6/7
+yum install libcurl-devel openssl-devel
+# archlinux和它的变种，如manjaro, archlinuxarm, blackarch
+pacman -S curl openssl
+# alpine
+# 如果提示openssl1.1-compat-dev-1.1.1xxx: conflicts，只安装curl-dev就行
+apk add curl-dev openssl-dev
+# opensuse, suse
+zypper install libcurl-devel libopenssl-devel
+```
+
+#### macOS
+
+```bash
+brew install curl openssl
+```
+
+然后根据提示执行export PKG_CONFIG_PATH来让configure能够找到它们
+
+### 构建安装
+
+下载或者 clone 源代码后，在终端进入源码目录，执行下面的命令进行编译和安装，构建参数见[下面的说明](#compile-args)
 
 ```shell
+# 获取源码
 git clone https://github.com/swow/swow.git swow
-
 cd swow/ext
+# 生成configure
 phpize
+# 执行configure，构建参数见下面的说明
 ./configure
-make
+# 构建，可以使用 -j+数字 来并行构建
+make -j4
+# 安装，如果configure制定了prefix，可以不使用sudo
 sudo make install
 ```
+
+!> 编译成功后，在使用时推荐通过 `-d` 来按需加载 Swow 扩展，如：`php -d extension=swow`
 
 ## 编译安装 (Windows)
 
@@ -36,29 +76,29 @@ sudo make install
 
 ### 准备php-sdk-binary-tools
 
-clone微软提供的php-sdk-binary-tools到任意目录（以下使用C:\php-sdk-binary-tools为例）
+clone PHP官方提供的php-sdk-binary-tools到任意目录（以下使用C:\php-sdk-binary-tools为例）
 
 ```batch
-git clone https://github.com/Microsoft/php-sdk-binary-tools
+git clone https://github.com/php/php-sdk-binary-tools
 ```
 
-### 准备依赖
+### 准备构建依赖（Windows）
 
-!> 目前Swow未实现openssl（20210128），因此不需要准备任何依赖
+在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如curl）
 
-在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架构名例如x64>/` 找到依赖的包（例如openssl）
+注意版本对齐，未对齐的依赖版本可能导致奇怪的segfault，PHP无法正常退出等神奇问题，`https://windows.php.net/downloads/php-sdk/deps/series/`中的文件提供了这些版本信息
 
 解压到任意目录（以下使用C:\deps为例）
 
 如果解压到Swow扩展源码目录的同级deps目录，则下面可以省去--with-php-build参数
 
-例如Swow源码在C:\swow，deps在C:\swow\deps时
+例如Swow源码在C:\swow，Swow扩展源码目录在C:\swow\ext，deps在C:\swow\deps时
 
 ### 构建
 
 打开PHP工具命令行：
 
-例如在为之前提到的PHP8.0 VS16 x64 NTS构建swow扩展则执行C:\php-sdk-binary-tools\phpsdk-vs16-x64.bat 
+例如在为之前提到的PHP8.0 VS16 x64 NTS构建swow扩展则执行C:\php-sdk-binary-tools\phpsdk-vs16-x64.bat
 
 在打开的命令行中下载或者 clone 源代码后，进入源码目录，执行下面的命令进行构建
 
@@ -106,16 +146,44 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 !> 编译成功后，在使用时推荐通过 `-d` 来按需加载 Swow 扩展，如：`php -d extension=swow`
 
-## 编译参数
+## 编译参数 :id=compile-args
+
+### 支持参数
+
+* `--enable-swow`
+
+开启Swow扩展的编译（默认开启，可以指定`=yes`或者`=shared`，`=static`）
+
+* `--enable-swow-ssl`
+
+开启Swow SSL支持，需要OpenSSL
+
+* `--enable-swow-curl`
+
+开启Swow cURL支持，需要cURL
+
+### 调试参数
 
 * `--enable-debug`
 
-打开PHP的调试模式
+打开PHP的调试模式，需要在**编译PHP时**指定，在编译Swow时指定无效
+
+* （Windows）`--enable-debug-pack`
+
+打开扩展的的debug pack构建，用于Windows下Release版本PHP的Swow调试，**编译Swow时**指定，不能与`--enable-debug`一同使用
 
 * `--enable-swow-debug`
 
 打开Swow的调试模式
 
-* `--enable-swow`
+* （Linux）`--enable-swow-valgrind`
 
-开启Swow扩展的编译
+（需要`--enable-swow-debug`）打开Swow的valgrind支持，用于检查C代码内存问题
+
+* （Unix-like）`--enable-swow-gcov`
+
+（需要`--enable-swow-debug`）开启Swow的GCOV支持，用于C代码覆盖率支持
+
+* （Unix-like）`--enable-swow-{address,undefined,memory}-sanitizer`
+
+（需要`--enable-swow-debug`）开启Swow的{A,UB,M}San支持，用于找出C代码的潜在问题

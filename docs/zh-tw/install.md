@@ -4,17 +4,57 @@ Swow 擴充套件安裝提供了以下幾種方法
 
 ## 編譯安裝 (UNIX-like 或 cygwin、msys、wsl)
 
-下載或者 clone 原始碼後，在終端進入原始碼目錄，執行下面的命令進行編譯和安裝
+首先安裝PHP和它的開發包（php標頭檔案和phpize，php-config等），安裝方法參考各發行版說明
+
+### 準備構建依賴（UNIX）
+
+如果你需要cURL hook支援或者ssl支援
+
+#### linux
+
+```bash
+# debian和它的變種，如ubuntu, kali, armbian, raspbian, deepin, uos
+apt-get install libcurl4-openssl-dev libssl-dev
+# fedora, rhel 8, centos 8
+dnf install libcurl-devel openssl-devel
+# 舊版fedora, rhel 6/7, centos 6/7
+yum install libcurl-devel openssl-devel
+# archlinux和它的變種，如manjaro, archlinuxarm, blackarch
+pacman -S curl openssl
+# alpine
+# 如果提示openssl1.1-compat-dev-1.1.1xxx: conflicts，只安裝curl-dev就行
+apk add curl-dev openssl-dev
+# opensuse, suse
+zypper install libcurl-devel libopenssl-devel
+```
+
+#### macOS
+
+```bash
+brew install curl openssl
+```
+
+然後根據提示執行export PKG_CONFIG_PATH來讓configure能夠找到它們
+
+### 構建安裝
+
+下載或者 clone 原始碼後，在終端進入原始碼目錄，執行下面的命令進行編譯和安裝，構建引數見[下面的說明](#compile-args)
 
 ```shell
+# 獲取原始碼
 git clone https://github.com/swow/swow.git swow
-
 cd swow/ext
+# 生成configure
 phpize
+# 執行configure，構建引數見下面的說明
 ./configure
-make
+# 構建，可以使用 -j+數字 來並行構建
+make -j4
+# 安裝，如果configure制定了prefix，可以不使用sudo
 sudo make install
 ```
+
+!> 編譯成功後，在使用時推薦通過 `-d` 來按需載入 Swow 擴充套件，如：`php -d extension=swow`
 
 ## 編譯安裝 (Windows)
 
@@ -36,29 +76,29 @@ sudo make install
 
 ### 準備php-sdk-binary-tools
 
-clone微軟提供的php-sdk-binary-tools到任意目錄（以下使用C:\php-sdk-binary-tools為例）
+clone PHP官方提供的php-sdk-binary-tools到任意目錄（以下使用C:\php-sdk-binary-tools為例）
 
 ```batch
-git clone https://github.com/Microsoft/php-sdk-binary-tools
+git clone https://github.com/php/php-sdk-binary-tools
 ```
 
-### 準備依賴
+### 準備構建依賴（Windows）
 
-!>  目前Swow未實現openssl（20210128），因此不需要準備任何依賴
+在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架構名例如x64>/` 找到依賴的包（例如curl）
 
-在 `https://windows.php.net/downloads/php-sdk/deps/<vc版本例如vc15或者vs16>/<架構名例如x64>/` 找到依賴的包（例如openssl）
+注意版本對齊，未對齊的依賴版本可能導致奇怪的segfault，PHP無法正常退出等神奇問題，`https://windows.php.net/downloads/php-sdk/deps/series/`中的檔案提供了這些版本資訊
 
 解壓到任意目錄（以下使用C:\deps為例）
 
 如果解壓到Swow擴充套件原始碼目錄的同級deps目錄，則下面可以省去--with-php-build引數
 
-例如Swow原始碼在C:\swow，deps在C:\swow\deps時
+例如Swow原始碼在C:\swow，Swow擴充套件原始碼目錄在C:\swow\ext，deps在C:\swow\deps時
 
 ### 構建
 
 開啟PHP工具命令列：
 
-例如在為之前提到的PHP8.0 VS16 x64 NTS構建swow擴充套件則執行C:\php-sdk-binary-tools\phpsdk-vs16-x64.bat 
+例如在為之前提到的PHP8.0 VS16 x64 NTS構建swow擴充套件則執行C:\php-sdk-binary-tools\phpsdk-vs16-x64.bat
 
 在開啟的命令列中下載或者 clone 原始碼後，進入原始碼目錄，執行下面的命令進行構建
 
@@ -106,16 +146,44 @@ php vendor/bin/swow-builder --enable="--enable-debug"
 
 !> 編譯成功後，在使用時推薦通過 `-d` 來按需載入 Swow 擴充套件，如：`php -d extension=swow`
 
-## 編譯引數
+## 編譯引數 :id=compile-args
+
+### 支援引數
+
+* `--enable-swow`
+
+開啟Swow擴充套件的編譯（預設開啟，可以指定`=yes`或者`=shared`，`=static`）
+
+* `--enable-swow-ssl`
+
+開啟Swow SSL支援，需要OpenSSL
+
+* `--enable-swow-curl`
+
+開啟Swow cURL支援，需要cURL
+
+### 除錯引數
 
 * `--enable-debug`
 
-開啟PHP的除錯模式
+開啟PHP的除錯模式，需要在**編譯PHP時**指定，在編譯Swow時指定無效
+
+* （Windows）`--enable-debug-pack`
+
+開啟擴充套件的的debug pack構建，用於Windows下Release版本PHP的Swow除錯，**編譯Swow時**指定，不能與`--enable-debug`一同使用
 
 * `--enable-swow-debug`
 
 開啟Swow的除錯模式
 
-* `--enable-swow`
+* （Linux）`--enable-swow-valgrind`
 
-開啟Swow擴充套件的編譯
+（需要`--enable-swow-debug`）開啟Swow的valgrind支援，用於檢查C程式碼記憶體問題
+
+* （Unix-like）`--enable-swow-gcov`
+
+（需要`--enable-swow-debug`）開啟Swow的GCOV支援，用於C程式碼覆蓋率支援
+
+* （Unix-like）`--enable-swow-{address,undefined,memory}-sanitizer`
+
+（需要`--enable-swow-debug`）開啟Swow的{A,UB,M}San支援，用於找出C程式碼的潛在問題

@@ -7,11 +7,11 @@
   <meta name="description" content="Swow官方文档">
   <meta name="keywords" content="php,swow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/sy-records/staticfile/css/docsify/vue.css">
 </head>
 <body>
 <div id="app"></div>
-<script src="//cdn.jsdelivr.net/gh/sy-records/staticfile/js/docsify/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github/index.js"></script>
 <script src="//cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
@@ -48,9 +48,20 @@
     alias: {
       '/_sidebar.md': '/zh-cn/_sidebar.md',
       '/.*/_navbar.md': '/_navbar.md',
+      '/zh-cn/.*/_sidebar.md': '/zh-cn/_sidebar.md',
+      '/zh-tw/.*/_sidebar.md': '/zh-tw/_sidebar.md',
+      '/zh-hk/.*/_sidebar.md': '/zh-hk/_sidebar.md',
+      '/en/.*/_sidebar.md': '/en/_sidebar.md',
+    },
+    nameLink: {
+      '/zh-cn/': '#/zh-cn/',
+      '/zh-tw/': '#/zh-tw/',
+      '/zh-hk/': '#/zh-hk/',
+      '/en/': '#/en/',
+      '/': '#/',
     },
     plugins: [
-      EditOnGithubPlugin.create('https://github.com/swow/wiki/blob/master/docs/'),
+      EditOnGithubPlugin.create('https://github.com/swow/wiki/blob/master/docs/', null, 'Edit on GitHub'),
       function (hook) {
         hook.doneEach(function () {
           pangu.spacingElementByClassName('content')
@@ -59,7 +70,7 @@
     ]
   }
 </script>
-<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
 <script src="//cdn.jsdelivr.net/gh/sy-records/staticfile/js/docsify/search.min.js"></script>
 </body>
 </html>
